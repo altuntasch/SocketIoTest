@@ -10,22 +10,19 @@ function processRequest(request, response) {
         "Content-Type": "text/html"
     });
 
-    response.write("Simple HTML Page");
+    response.write("Socket Io Tutorial");
 
     response.end();
 
 }
 
-
-// Buradan sonrası yeni
 var io = require("socket.io").listen(server);
 
 io.sockets.on('connection', function (socket) {
 
-    console.log("User Connected");
+    socket.on("test", function (data) {
 
-    socket.on("disconnect", function () {
-
-        console.log("User Disconnected");
+        console.log("Name : " + data.value1 + ", Age : " + data.value2);
     });
+
 });

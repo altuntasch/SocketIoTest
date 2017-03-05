@@ -10,6 +10,8 @@ $(document).ready(function(){
 
     var socket = io.connect("http://localhost:1234");
 
+    socket.emit("test", { value1:"Ali", value2:49 });
+
 });
 </script>
 </head>
