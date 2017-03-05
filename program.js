@@ -24,11 +24,14 @@ io.sockets.on('connection', function (socket) {
 
     connectionCount++;
 
+    socket.broadcast.emit("connectionCountChanged", connectionCount);
     socket.emit("connectionCountChanged", connectionCount);
 
     socket.on("disconnect", function () {
 
         connectionCount--;
+
+        socket.broadcast.emit("connectionCountChanged", connectionCount);
     });
 
 });
