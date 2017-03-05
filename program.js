@@ -18,20 +18,17 @@ function processRequest(request, response) {
 
 var io = require("socket.io").listen(server);
 
+var connectionCount = 0;
+
 io.sockets.on('connection', function (socket) {
 
-    sendMessage(socket);
+    connectionCount++;
+
+    socket.emit("connectionCountChanged", connectionCount);
+
+    socket.on("disconnect", function () {
+
+        connectionCount--;
+    });
 
 });
-
-function sendMessage(socket) {
-
-    setTimeout(function () {
-        socket.emit("test", {
-            value1: "Ali",
-            value2: 49
-        });
-
-        sendMessage(socket);
-    }, 1000);
-}
