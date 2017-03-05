@@ -10,7 +10,11 @@ $(document).ready(function(){
 
     var socket = io.connect("http://localhost:1234");
 
-    socket.emit("test", { value1:"Ali", value2:49 });
+    socket.on("test", function (data) {
+
+        $("body").append("Name : " + data.value1 + ", Age : " + data.value2);
+        $("body").append("<br>");
+    });
 
 });
 </script>

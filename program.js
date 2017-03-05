@@ -10,7 +10,7 @@ function processRequest(request, response) {
         "Content-Type": "text/html"
     });
 
-    response.write("Socket Io Tutorial");
+    response.write("Simple HTML Page");
 
     response.end();
 
@@ -20,9 +20,9 @@ var io = require("socket.io").listen(server);
 
 io.sockets.on('connection', function (socket) {
 
-    socket.on("test", function (data) {
-
-        console.log("Name : " + data.value1 + ", Age : " + data.value2);
+    socket.emit("test", {
+        value1: "Ali",
+        value2: 49
     });
 
 });
