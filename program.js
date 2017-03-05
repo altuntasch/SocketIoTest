@@ -20,9 +20,18 @@ var io = require("socket.io").listen(server);
 
 io.sockets.on('connection', function (socket) {
 
-    socket.emit("test", {
-        value1: "Ali",
-        value2: 49
-    });
+    sendMessage(socket);
 
 });
+
+function sendMessage(socket) {
+
+    setTimeout(function () {
+        socket.emit("test", {
+            value1: "Ali",
+            value2: 49
+        });
+
+        sendMessage(socket);
+    }, 1000);
+}
