@@ -10,7 +10,7 @@ function processRequest(request, response) {
         "Content-Type": "text/html"
     });
 
-    response.write("Socket Io Tutorial");
+    response.write("Simple HTML Page");
 
     response.end();
 
@@ -18,11 +18,20 @@ function processRequest(request, response) {
 
 var io = require("socket.io").listen(server);
 
+var connectionCount = 0;
+
 io.sockets.on('connection', function (socket) {
 
-    socket.on("test", function (data) {
+    connectionCount++;
 
-        console.log("Name : " + data.value1 + ", Age : " + data.value2);
+    socket.broadcast.emit("connectionCountChanged", connectionCount);
+    socket.emit("connectionCountChanged", connectionCount);
+
+    socket.on("disconnect", function () {
+
+        connectionCount--;
+
+        socket.broadcast.emit("connectionCountChanged", connectionCount);
     });
 
 });
